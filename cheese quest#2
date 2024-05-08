@@ -1,0 +1,132 @@
+import random
+
+def main():
+    print("Welcome to Cheese Quest!")
+    print("You are a brave adventurer on a quest to find the rarest cheeses in the world.")
+    print("Your journey begins now!\n")
+    
+    player_name = input("Enter your name: ")
+    print(f"Welcome, {player_name}!\n")
+
+
+    cheeses = {
+        "Cheddar": 200, 
+        "Gouda": 400, 
+        "Mozzarella":500, 
+        "Swiss": 600, 
+        "cheddar":700,
+        "cheese of truth":7, 
+        "cheese of knowledge":1000,
+        "cheese of poop":-1000,
+        "cheese of zain":50,
+        "cheese of ahmed":-1000,
+        "cheese of mama":1000,
+        "cheese of sarah":4500, 
+        "cheese of the king/ibrahim/the rarest cheese":-5000,
+        "the real rarest cheese":6000, 
+        "gold cheese":5000, 
+        "diamond cheese":8890,
+        "moon cheese":4040, 
+        "poop cheese":-4382, 
+        "mamas fart cheese":-60000000, 
+        "cheesy toes":900000,
+        "satan cheese":666,
+    }
+
+    cheese_bag = []
+    score = 0
+    cheese_debt = 0
+    cheese_bucks = 0
+
+    while True:
+        print("\nYou are in a cheese-filled land. What would you like to do?")
+        print("1. Search for cheese")
+        print("2. Check your collected cheeses")
+        print("3. Quit")
+        print("4. Cheese Store")
+        choice = input("Enter your choice: ")
+        
+        if choice == "1":
+            search_result = search_for_cheese(cheeses)
+            if search_result:
+                print(f"You found {search_result} cheese!")
+                cheese_bag.append(search_result)
+                cheese_bucks += cheeses[search_result]
+            else:
+                print("You searched everywhere but found no cheese.")
+        elif choice == "2":
+            if cheese_bag:
+                print("You have collected the following cheeses:")
+                for cheese in cheese_bag:
+                    print("- " + cheese)
+            else:
+                print("You haven't collected any cheese yet.")
+        elif choice == "3":
+            print("Thanks for playing Cheese Quest! Goodbye!")
+            break
+        elif choice == "4":
+            tax = random.randint(10, 30)
+            print("Poop Clerk: Helloo traveller, would you like to sell your cheese or gamble your cheese???? hmmmmmmm????\n")
+            print(f"The current cheese economy is fanum taxing us at {tax}%, do you want to sell?\n")
+            store_choice = input("Press 1 for selling: press 2 for gambling:")
+            if store_choice == "1":
+                sold_cheese = cheese_bucks - (cheese_bucks * (tax/100))
+                cheese_bucks += sold_cheese
+                print(f"You chose to sell your cheese, I am a cheese connoisseur, you made ${sold_cheese}\n")
+                print(f"You now have ${cheese_bucks} dollars in your wallet!")
+            elif store_choice == "2":
+                gamble_result = gamble_cheese(cheese_bucks)
+                if gamble_result > 0:
+                    print(f"Congratulations! You won ${gamble_result} in the gamble!")
+                    cheese_bucks += gamble_result
+                else:
+                    print(f"Oops! You lost ${-gamble_result} in the gamble!")
+                    cheese_bucks += gamble_result
+            else:
+                print("Invalid choice. Please enter a valid option.")
+        else:
+            print("Invalid choice. Please enter a valid option.")
+
+        if cheese_bucks < 0:
+            cheese_debt += -(cheese_bucks)
+            cheese_bucks = 0
+            print(f"Uh oh, you're broke! You are ${cheese_debt} in cheese debt.")
+            if cheese_debt >= 99999:
+                while True:
+                    print("Poop Clerk needs his cheese bucks!")
+                    fight_chance = random.randint(1, 1) 
+                    fight_choice = input("Do you want to fight for your cheese life? 1 (yes) 2 (no): ")
+                    if fight_choice == "1":
+                        if fight_chance == 1:
+                            print("You've defeated the cheese god! You are the winner this time...")
+                            break
+                        else:
+                            print("You're dead!")
+                            print("You bozo, mwahaha!")
+                            exit()
+                    if fight_chance == "2":
+                        print("You're dead!")
+                        print("You bozo, mwahaha!")
+                        exit()
+                    else: 
+                        print("Invalid option")
+
+def search_for_cheese(cheeses):
+    found_cheese = random.choice(list(cheeses.keys()))
+    return found_cheese
+
+def gamble_cheese(cheese_bucks):
+    gamble_amount = int(input("Enter the amount of cheese bucks you want to gamble: "))
+    if gamble_amount > cheese_bucks:
+        print("You don't have enough cheese bucks to gamble that much!")
+        return 0
+    else:
+        chance = random.randint(1, 2)
+        if chance == 1:
+            return gamble_amount
+        else:
+            return -gamble_amount
+
+if __name__ == "__main__":
+    main()
+
